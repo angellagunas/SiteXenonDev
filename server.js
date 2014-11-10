@@ -6,7 +6,7 @@ var express      = require('express'),
 	cookieParser = require('cookie-parser');
 	bodyParser   = require('body-parser');
 var server       = express();//<-------------------------------------creamos el server de express
-var server_socket = http.createServer(server).listen(8000);//<-------creamos el server de sockets
+var server_socket = http.createServer(server).listen(process.env.PORT ||8000);//<-------creamos el server de sockets
 var io = require('socket.io').listen(server_socket);//<--------------el servidor de eventos escuchara en el mismo puerto que nuestro server de express
 
 swig.setDefaults({
@@ -45,7 +45,7 @@ server.set('uploadDir', './public/uploads');//<------------------------carpeta e
 server.use(express.static('./public'));//<-----------------------------aqui colocamos los css,js,img y toda la informacion publica.
 
 //controllers
-require('./app/controllers/home')(server);//<--------------------------agregamos el 
+require('./app/controllers/home')(server);//<--------------------------agregamos el controlador de home
 
 //connections
 require('./app/connections/facebook')(server);
